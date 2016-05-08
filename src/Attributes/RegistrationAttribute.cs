@@ -11,12 +11,15 @@ namespace Autofac.AttributeExtensions
         }
 
         public Lifestyle Lifestyle { get; }
-        public object[] LifetimeScopeTags { get; set; }
+        public object[] LifetimeScopeTags { get; protected set; }
         public string Name { get; set; }
         public object Key { get; set; }
         public bool AsImplementedInterfaces { get; set; } = true;
         public Type[] As { get; set; }
 
+        /// <summary>
+        /// Used internally to avoid a dependency on Autofac.
+        /// </summary>
         public static readonly object RequestLifetimeScopeTag = new object();
     }
 }

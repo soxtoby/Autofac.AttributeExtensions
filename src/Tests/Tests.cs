@@ -162,7 +162,7 @@ namespace Autofac.Attributes.Tests
     [InstancePerLifetimeScope]
     class InstancePerLifetimeScope { }
 
-    [InstancePerLifetimeScope(new object[] { "tag one", "tag two" })]
+    [InstancePerLifetimeScope("tag one", "tag two")]
     class InstancePerMatchingLifetimeScope { }
 
     [InstancePerRequest]

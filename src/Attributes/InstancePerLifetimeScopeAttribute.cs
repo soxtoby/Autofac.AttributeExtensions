@@ -5,7 +5,12 @@ namespace Autofac.AttributeExtensions
     [MeansImplicitUse]
     public class InstancePerLifetimeScopeAttribute : RegistrationAttribute
     {
-        public InstancePerLifetimeScopeAttribute(object[] lifetimeScopeTags = null)
+        public InstancePerLifetimeScopeAttribute() 
+            : base(Lifestyle.InstancePerLifetimeScope)
+        {
+        }
+
+        public InstancePerLifetimeScopeAttribute(params object[] lifetimeScopeTags)
             : base(Lifestyle.InstancePerLifetimeScope)
         {
             LifetimeScopeTags = lifetimeScopeTags;

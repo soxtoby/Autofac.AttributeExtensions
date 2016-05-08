@@ -5,6 +5,6 @@ namespace Autofac.AttributeExtensions
     [MeansImplicitUse]
     public class InstancePerRequestAttribute : InstancePerLifetimeScopeAttribute
     {
-        public InstancePerRequestAttribute() : base(new[] { RequestLifetimeScopeTag }) { }
+        public InstancePerRequestAttribute() : base(RequestLifetimeScopeTag) { }
     }
 }

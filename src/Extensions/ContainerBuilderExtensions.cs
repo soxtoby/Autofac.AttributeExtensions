@@ -81,7 +81,8 @@ namespace Autofac.AttributeExtensions
                     RegisterNamed(registration, attribute, asType);
                     RegisterKeyed(registration, attribute, asType);
                 }
-                registration.AsSelf();
+                if (attribute.As == null)
+                    registration.AsSelf();
             }
             else
             {

@@ -1,0 +1,18 @@
+version: 0.1.0
+skip_non_tags: true
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+before_build:
+- cmd: nuget restore src\Autofac.AttributeExtensions.sln
+build:
+  publish_nuget: true
+  include_nuget_references: true
+  verbosity: minimal
+deploy:
+- provider: NuGet
+  api_key:
+    secure: SlxJp/Oj+p1sAv9IZjrA4sIkaPkxu6r7QAWnZyynWsBPqE5GA9UXax3JlXU6sTLR
