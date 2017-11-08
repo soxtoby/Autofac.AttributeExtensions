@@ -16,7 +16,7 @@ namespace Autofac.AttributeExtensions
 
             foreach (Type type in attributedTypes)
             {
-                IEnumerable<RegistrationAttribute> registrationAttributes = type.GetCustomAttributes<RegistrationAttribute>();
+                IEnumerable<RegistrationAttribute> registrationAttributes = type.GetCustomAttributes<RegistrationAttribute>(false);
 
                 foreach (RegistrationAttribute attribute in registrationAttributes)
                 {
