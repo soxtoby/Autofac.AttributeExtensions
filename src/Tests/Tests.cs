@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Autofac.AttributeExtensions;
 using Autofac.Core;
 using Autofac.Core.Lifetime;
@@ -44,6 +47,20 @@ namespace Autofac.Attributes.Tests
 
             result1.ShouldBe(result2)
                 .And.ShouldBe(result3);
+        }
+
+        [Fact]
+        public void DerivedClass_BaseClassHasAttribute_IsNotRegistered()
+        {
+            _sut.IsRegistered<DerivedClassWithoutAttribute>().ShouldBe(false);
+        }
+
+        [Fact]
+        public void DerivedClassWithAttribute_BaseClassHasAttribute_IsRegistered()
+        {
+            _sut.IsRegistered<DerivedClassWithAttribute>().ShouldBe(true);
+            _sut.Resolve<IEnumerable<IBaseClassWithAttribute>>()
+                .Select(t => t.GetType()).ShouldMatch(typeof(DerivedClassWithAttribute), typeof(BaseClassWithAttribute));
         }
 
         [Fact]
@@ -174,6 +191,13 @@ namespace Autofac.Attributes.Tests
 
     [SingleInstance]
     class ImplementsInterface : BaseClass, IInterface { }
+
+    interface IBaseClassWithAttribute { }
+    [SingleInstance]
+    class BaseClassWithAttribute: IBaseClassWithAttribute { }
+    class DerivedClassWithoutAttribute : BaseClassWithAttribute { }
+    [SingleInstance]
+    class DerivedClassWithAttribute : BaseClassWithAttribute { }
 
     interface IUnregistered { }
 
