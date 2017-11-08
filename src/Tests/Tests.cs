@@ -59,8 +59,8 @@ namespace Autofac.Attributes.Tests
         public void DerivedClassWithAttribute_BaseClassHasAttribute_IsRegistered()
         {
             _sut.IsRegistered<DerivedClassWithAttribute>().ShouldBe(true);
-            _sut.Resolve<IEnumerable<IInterface>>()
-                .Select(t => t.GetType()).ShouldMatch(typeof(DerivedClassWithAttribute), typeof(ImplementsInterface));
+            _sut.Resolve<IEnumerable<IBaseClassWithAttribute>>()
+                .Select(t => t.GetType()).ShouldMatch(typeof(DerivedClassWithAttribute), typeof(BaseClassWithAttribute));
         }
 
         [Fact]
@@ -191,9 +191,13 @@ namespace Autofac.Attributes.Tests
 
     [SingleInstance]
     class ImplementsInterface : BaseClass, IInterface { }
-    class DerivedClassWithoutAttribute : ImplementsInterface { }
+
+    interface IBaseClassWithAttribute { }
     [SingleInstance]
-    class DerivedClassWithAttribute : ImplementsInterface { }
+    class BaseClassWithAttribute: IBaseClassWithAttribute { }
+    class DerivedClassWithoutAttribute : BaseClassWithAttribute { }
+    [SingleInstance]
+    class DerivedClassWithAttribute : BaseClassWithAttribute { }
 
     interface IUnregistered { }
 
