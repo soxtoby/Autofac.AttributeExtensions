@@ -1,59 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9ECA169C-AE81-4B56-A5A5-968C3254617A}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworks>netstandard1.1;net452</TargetFrameworks>
+    <Version>0.1.2</Version>
+    <Authors>Simon Oxtoby</Authors>
+    <Company />
+    <Product />
+    <Description>Attributes for configuring Autofac registrations</Description>
+    <Copyright>Simon Oxtoby 2017</Copyright>
+    <PackageProjectUrl>https://github.com/soxtoby/Autofac.AttributeExtensions</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/soxtoby/Autofac.AttributeExtensions/blob/master/license.txt</PackageLicenseUrl>
+    <PackageTags>Autofac attributes</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Attributes.xml</DocumentationFile>
     <RootNamespace>Autofac.AttributeExtensions</RootNamespace>
-    <AssemblyName>Autofac.AttributeExtensions.Attributes</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="NamedAttribute.cs" />
-    <Compile Include="ParameterRegistrationAttribute.cs" />
-    <Compile Include="RegistrationAttribute.cs" />
-    <Compile Include="InstancePerDependencyAttribute.cs" />
-    <Compile Include="InstancePerLifetimeScopeAttribute.cs" />
-    <Compile Include="InstancePerRequestAttribute.cs" />
-    <Compile Include="Lifestyle.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResharperAnnotations.cs" />
-    <Compile Include="SingleInstanceAttribute.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Attributes.nuspec" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

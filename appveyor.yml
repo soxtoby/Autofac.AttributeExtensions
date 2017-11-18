@@ -1,4 +1,4 @@
-version: 0.1.1
+version: 0.2.0
 skip_non_tags: true
 assembly_info:
   patch: true

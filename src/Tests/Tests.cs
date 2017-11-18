@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Autofac.AttributeExtensions;
@@ -60,7 +59,7 @@ namespace Autofac.Attributes.Tests
         {
             _sut.IsRegistered<DerivedClassWithAttribute>().ShouldBe(true);
             _sut.Resolve<IEnumerable<IBaseClassWithAttribute>>()
-                .Select(t => t.GetType()).ShouldMatch(typeof(DerivedClassWithAttribute), typeof(BaseClassWithAttribute));
+                .Select(t => t.GetType()).ShouldOnlyContain(new[] { typeof(DerivedClassWithAttribute), typeof(BaseClassWithAttribute) });
         }
 
         [Fact]
@@ -194,7 +193,7 @@ namespace Autofac.Attributes.Tests
 
     interface IBaseClassWithAttribute { }
     [SingleInstance]
-    class BaseClassWithAttribute: IBaseClassWithAttribute { }
+    class BaseClassWithAttribute : IBaseClassWithAttribute { }
     class DerivedClassWithoutAttribute : BaseClassWithAttribute { }
     [SingleInstance]
     class DerivedClassWithAttribute : BaseClassWithAttribute { }

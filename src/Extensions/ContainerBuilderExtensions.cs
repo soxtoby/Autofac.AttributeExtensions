@@ -16,7 +16,7 @@ namespace Autofac.AttributeExtensions
 
             foreach (Type type in attributedTypes)
             {
-                IEnumerable<RegistrationAttribute> registrationAttributes = type.GetCustomAttributes<RegistrationAttribute>(false);
+                IEnumerable<RegistrationAttribute> registrationAttributes = type.GetTypeInfo().GetCustomAttributes<RegistrationAttribute>(false);
 
                 foreach (RegistrationAttribute attribute in registrationAttributes)
                 {
@@ -33,7 +33,7 @@ namespace Autofac.AttributeExtensions
 
         private static void ConfigureParameters(Registration registration, Type type)
         {
-            var attributedParameters = type.GetConstructors()
+            var attributedParameters = type.GetTypeInfo().GetConstructors()
                 .SelectMany(c => c.GetParameters())
                 .Select(p => new { info = p, attribute = p.GetCustomAttribute<ParameterRegistrationAttribute>() })
                 .Where(p => p.attribute != null);
@@ -95,7 +95,7 @@ namespace Autofac.AttributeExtensions
         {
             return attribute.As
                 ?? (attribute.AsImplementedInterfaces
-                    ? type.GetInterfaces().Concat(new[] { type })
+                    ? type.GetTypeInfo().GetInterfaces().Concat(new[] { type })
                     : new[] { type });
         }
 
