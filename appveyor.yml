@@ -1,11 +1,15 @@
 version: 0.2.0
+image: Visual Studio 2017
+configuration: Release
 skip_non_tags: true
-assembly_info:
+dotnet_csproj:
   patch: true
-  file: '**\AssemblyInfo.*'
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
   assembly_version: '{version}'
-  assembly_file_version: '{version}'
-  assembly_informational_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
 before_build:
 - cmd: nuget restore src\Autofac.AttributeExtensions.sln
 build:
