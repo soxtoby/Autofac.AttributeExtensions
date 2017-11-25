@@ -7,7 +7,6 @@
     <PackageProjectUrl>https://github.com/soxtoby/Autofac.AttributeExtensions</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/soxtoby/Autofac.AttributeExtensions/blob/master/license.txt</PackageLicenseUrl>
     <PackageTags>Autofac attributes</PackageTags>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Attributes.xml</DocumentationFile>
     <RootNamespace>Autofac.AttributeExtensions</RootNamespace>
     <AssemblyName>Autofac.AttributeExtensions</AssemblyName>
