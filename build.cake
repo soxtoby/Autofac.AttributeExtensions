@@ -5,7 +5,7 @@ var version = new Lazy<GitVersion>(GitVersion);
 var slnFolder = "src";
 
 if (AppVeyor.IsRunningOnAppVeyor)
-    AppVeyor.UpdateBuildVersion(version.Value.SemVer);
+    AppVeyor.UpdateBuildVersion(version.Value.FullSemVer);
 
 Task("Build")
     .IsDependentOn("Restore")
