@@ -74,21 +74,27 @@ namespace Autofac.AttributeExtensions
 
         private static void RegisterAs(Registration registration, RegistrationAttribute attribute, Type type)
         {
-            if (attribute.Name != null || attribute.Key != null)
+            if (RegisterOnlyAsNamed(attribute))
             {
                 foreach (Type asType in RegisterAsTypes(attribute, type))
-                {
                     RegisterNamed(registration, attribute, asType);
-                    RegisterKeyed(registration, attribute, asType);
-                }
                 if (attribute.As == null)
                     registration.AsSelf();
             }
             else
             {
                 foreach (Type asType in RegisterAsTypes(attribute, type))
+                {
+                    RegisterNamed(registration, attribute, asType);
+                    RegisterKeyed(registration, attribute, asType);
                     registration.As(asType);
+                }
             }
+        }
+
+        private static bool RegisterOnlyAsNamed(RegistrationAttribute attribute)
+        {
+            return attribute.Name != null && attribute.Key == null;
         }
 
         private static IEnumerable<Type> RegisterAsTypes(RegistrationAttribute attribute, Type type)

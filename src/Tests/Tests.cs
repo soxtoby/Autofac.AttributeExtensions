@@ -4,6 +4,7 @@ using System.Linq;
 using Autofac.AttributeExtensions;
 using Autofac.Core;
 using Autofac.Core.Lifetime;
+using Autofac.Features.Indexed;
 using EasyAssertions;
 using Xunit;
 
@@ -139,11 +140,41 @@ namespace Autofac.Attributes.Tests
         }
 
         [Fact]
+        public void NamedRegistrationAsSpecifiedTypes()
+        {
+            _sut.IsRegistered<ISpecifiedNamed>().ShouldBe(false);
+            _sut.IsRegistered<RegisteredNamedAsSpecifiedTypes>().ShouldBe(false);
+            _sut.IsRegisteredWithName<ISpecifiedNamed>("name").ShouldBe(true);
+            _sut.IsRegisteredWithName<RegisteredNamedAsSpecifiedTypes>("name").ShouldBe(false);
+        }
+
+        [Fact]
         public void KeyedRegistration()
         {
-            _sut.IsRegistered<IKeyedRegistration>().ShouldBe(false);
+            _sut.IsRegistered<IKeyedRegistration>().ShouldBe(true);
             _sut.IsRegistered<KeyedRegistration>().ShouldBe(true);
+            _sut.IsRegisteredWithKey<IKeyedRegistration>("key").ShouldBe(true);
             _sut.IsRegisteredWithKey<KeyedRegistration>("key").ShouldBe(true);
+        }
+
+        [Fact]
+        public void KeyedRegisteredAsSpecifiedTypes()
+        {
+            _sut.IsRegistered<RegisteredKeyedAsSpecifiedTypes>().ShouldBe(false);
+            _sut.IsRegisteredWithKey<RegisteredKeyedAsSpecifiedTypes>("key").ShouldBe(false);
+            _sut.IsRegistered<ISpecifiedKeyed>().ShouldBe(true);
+            _sut.IsRegisteredWithKey<ISpecifiedKeyed>("key").ShouldBe(true);
+        }
+
+        [Fact]
+        public void NamedAndKeyedRegistration()
+        {
+            _sut.IsRegistered<INamedAndKeyed>().ShouldBe(true);
+            _sut.IsRegistered<NamedAndKeyed>().ShouldBe(true);
+            _sut.IsRegisteredWithKey<INamedAndKeyed>("key").ShouldBe(true);
+            _sut.IsRegisteredWithKey<NamedAndKeyed>("key").ShouldBe(true);
+            _sut.IsRegisteredWithName<INamedAndKeyed>("name").ShouldBe(true);
+            _sut.IsRegisteredWithName<NamedAndKeyed>("name").ShouldBe(true);
         }
 
         [Fact]
@@ -217,10 +248,25 @@ namespace Autofac.Attributes.Tests
     [InstancePerDependency(Name = "name")]
     class NamedRegistration : INamedRegistration { }
 
+    interface ISpecifiedNamed { }
+
+    [InstancePerDependency(Name = "name", As = new[] { typeof(ISpecifiedNamed) })]
+    class RegisteredNamedAsSpecifiedTypes : ISpecifiedNamed { }
+
     interface IKeyedRegistration { }
 
     [InstancePerDependency(Key = "key")]
     class KeyedRegistration : IKeyedRegistration { }
+
+    interface ISpecifiedKeyed { }
+
+    [InstancePerDependency(Key = "key", As = new[] { typeof(ISpecifiedKeyed) })]
+    class RegisteredKeyedAsSpecifiedTypes : ISpecifiedKeyed { }
+
+    interface INamedAndKeyed { }
+
+    [InstancePerDependency(Name = "name", Key = "key")]
+    class NamedAndKeyed : INamedAndKeyed { }
 
     [SingleInstance(Name = "single")]
     [InstancePerDependency(Name = "transient")]
